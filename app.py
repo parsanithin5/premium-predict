@@ -15,7 +15,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 # ==============================
-# STREAMLIT PAGE CONFIG (MUST BE FIRST)
+# STREAMLIT PAGE CONFIG (MUST BE FIRST STREAMLIT COMMAND)
 # ==============================
 st.set_page_config(
     page_title="Insurance Cost Prediction",
@@ -54,30 +54,27 @@ st.dataframe(df.describe())
 
 
 # ==============================
-# EDA & VISUALIZATION
+# EDA & VISUALIZATION (FIXED FOR STREAMLIT CLOUD)
 # ==============================
 st.header("📈 Exploratory Data Analysis")
 
 # Correlation Heatmap
 st.subheader("Correlation Heatmap")
-plt.figure(figsize=(8, 6))
-sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")
-st.pyplot(plt.gcf())
-plt.clf()
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm", ax=ax)
+st.pyplot(fig)
 
 # BMI vs Charges
 st.subheader("BMI vs Charges (Smoker Highlighted)")
-plt.figure(figsize=(8, 6))
-sns.scatterplot(x="bmi", y="charges", hue="smoker", data=df)
-st.pyplot(plt.gcf())
-plt.clf()
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.scatterplot(x="bmi", y="charges", hue="smoker", data=df, ax=ax)
+st.pyplot(fig)
 
 # Charges Distribution
 st.subheader("Charges Distribution")
-plt.figure(figsize=(8, 6))
-sns.histplot(df["charges"], bins=30, kde=True)
-st.pyplot(plt.gcf())
-plt.clf()
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.histplot(df["charges"], bins=30, kde=True, ax=ax)
+st.pyplot(fig)
 
 
 # ==============================
